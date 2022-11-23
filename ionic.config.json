@@ -1,0 +1,7 @@
+{
+  "name": "whiplash",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

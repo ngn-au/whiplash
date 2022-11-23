@@ -1,0 +1,71 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-transform: capitalize;">{{ dashboard }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{ dashboard }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div id="container">
+    <ion-grid class="ion-text-center">
+ 
+      <ion-row class="header-row">  
+        <ion-col>
+          <ion-text>Ready</ion-text>
+        </ion-col>
+        <ion-col>
+          <ion-text>Host:Port</ion-text>
+        </ion-col>
+  
+        <ion-col>
+          <ion-text>NodePort</ion-text>
+        </ion-col>
+        <ion-col>
+          <ion-text>Gateway</ion-text>
+        </ion-col>
+        <ion-col>
+          <ion-text>Actions</ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="list-row" *ngFor="let tunnel of Tunnels;trackBy: trackByFn">
+        <ion-col class="ion-padding-top">
+          <ion-text>
+            <ion-icon size="large" [color]="tunnel.STATUS && tunnel.NODEPORT != 0 ? 'success' : 'danger' ? tunnel.NODEPORT == 0 ? null : 'warning' : 'danger'" [name]="(!tunnel.NODEPORT || !tunnel.STATUS) ? 'unlink-outline' : 'link-outline'"></ion-icon>
+          </ion-text>
+        </ion-col>
+          <ion-col class="ion-padding-top">
+            <ion-text>
+              {{tunnel.REMOTE_HOST}}:{{tunnel.REMOTE_PORT}}
+            </ion-text>
+          </ion-col>
+    
+          <ion-col class="ion-padding-top">
+            <ion-text>
+              {{tunnel.NODEPORT}}
+            </ion-text>
+          </ion-col>
+
+          <ion-col class="ion-padding-top">
+            <ion-text>
+              {{tunnel.TUNNEL_HOST}}:{{tunnel.TUNNEL_PORT}}
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-button  fill="none" [disabled]="tunnel.STATUS == 'false' || tunnel.NODEPORT == 0"  (click)="deleteTunnel(tunnel.SSH_TUNNEL)">
+              <ion-icon size="large" color="medium" name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-col>
+      </ion-row>
+  
+    </ion-grid>
+      <!-- <ion-row *ngFor="let tunnel of Tunnels">REMOTE HOST: {{tunnel.REMOTE_HOST}}</ion-row> -->
+  </div>
+</ion-content>

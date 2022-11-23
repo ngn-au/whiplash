@@ -1,0 +1,66 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: whiplash
+  labels:
+    name: whiplash
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whiplash
+  namespace: whiplash
+  labels:
+    app: whiplash
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.whiplash.service: whiplash
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: whiplash
+        io.whiplash.service: whiplash
+    spec:
+      containers:
+        - name: whiplash-web
+          image: jadsy2107/whiplash
+          imagePullPolicy: IfNotPresent 
+          ports:
+          - containerPort: 80
+        - name: whiplash-server
+          image: jadsy2107/whiplash-server
+          ports:
+          - containerPort: 8081
+          imagePullPolicy: IfNotPresent 
+          volumeMounts:
+            - name: whiplash-cluster-config
+              readOnly: true
+              mountPath: "/usr/src/app/cluster.yaml"
+              subPath: "cluster.yaml"
+      restartPolicy: Always
+      volumes:
+        - name: whiplash-cluster-config
+          configMap:
+            name: whiplash-cluster-config
+            defaultMode: 0600
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    io.whiplash.service: whiplash
+  name: whiplash-web
+  namespace: whiplash
+spec:
+  ports:
+    - name: "web"
+      port: 80
+      targetPort: 80
+  type: NodePort
+  selector:
+    io.whiplash.service: whiplash

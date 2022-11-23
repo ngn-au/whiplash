@@ -1,0 +1,46 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-content>
+        <ion-list id="inbox-list" style="padding-top: 0;">
+          <ion-list-header class="ion-margin-bottom">Whiplash</ion-list-header>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+        <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
+          <ion-item lines="full">
+            <ion-label position="floating">Remote Host</ion-label>
+            <ion-input formControlName="REMOTE_HOST" type="text" required></ion-input>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label position="floating">Remote Port</ion-label>
+            <ion-input formControlName="REMOTE_PORT" type="number" required></ion-input>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label position="floating">Tunnel Host</ion-label>
+            <ion-input formControlName="TUNNEL_HOST" type="text" required></ion-input>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label position="floating">Tunnel Port</ion-label>
+            <ion-input formControlName="TUNNEL_PORT" type="number"></ion-input>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label position="floating">Tunnel User</ion-label>
+            <ion-input formControlName="TUNNEL_USER" type="text"></ion-input>
+          </ion-item>
+          <ion-row>
+            <ion-col>
+              <ion-button type="submit" color="primary" [disabled]="!ionicForm.valid" expand="block">Add Tunnel</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>
