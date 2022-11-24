@@ -28,7 +28,13 @@ whiplash-674dd54bbb-kl8g7   2/2     Running   0          11m
 ```
 
 
-# DEVELOPMENT 
+# BUILD IT YOURSELF 
+To build to dashboard web directory you must have Ionic CLI installed;
+
+```bash
+npm install -g @ionic/cli
+```
+
 Build the web directory 
 ```bash
 ionic build web --prod
