@@ -28,6 +28,11 @@ whiplash-674dd54bbb-kl8g7   2/2     Running   0          11m
 ```
 
 
+![Screen Shot 2022-11-24 at 11 02 28 am](https://user-images.githubusercontent.com/107200645/203667972-1d9c8091-f8e3-47b2-b050-2868913ab209.png)
+
+
+
+
 # BUILD IT YOURSELF 
 To build to dashboard web directory you must have Ionic CLI installed;
 
