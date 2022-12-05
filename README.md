@@ -36,6 +36,10 @@ When you add a tunnel, Whiplash creates a tiny Pod with one container from  `"im
 
 
 # BUILD IT YOURSELF 
+```bash
+npm install
+```
+
 To build to dashboard web directory you must have Ionic CLI installed;
 
 ```bash
